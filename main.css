@@ -8,3 +8,12 @@ h1 {
     font-size: 40px;
 }
 
+#logo {
+    height: 96px;
+    width: 249px;
+    margin-left: 100px;
+}
+
+input {
+    border-radius: 5px;
+}
