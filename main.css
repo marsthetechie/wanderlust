@@ -17,3 +17,7 @@ h1 {
 input {
     border-radius: 5px;
 }
+
+.container {
+    visibility: hidden;
+}
