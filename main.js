@@ -8,9 +8,12 @@ const $weatherDivs = [$('#weather1'), $('#weather2'), $('#weather3'), $('#weathe
 
 const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-const clientId;
-const clientSecret;
+ const clientId = '';
+ const clientSecret = '';
 const url = 'https://api.foursquare.com/v2/venues/explore?';
+
+const apiKey = '';
+const weatherUrl = 'https://api.apixu.com/v1/forecast.json?key=';
 
 const getVenues = async () => {
     let limit = 10;
@@ -20,7 +23,7 @@ const getVenues = async () => {
     try {
         const response = await fetch(urlToFetch);
         if (response.ok) {
-            const jsonResponse = response.json();
+            const jsonResponse = await response.json();
             const venues = jsonResponse.response.groups[0].items.map(item => {
                 return item.venue;
             })
@@ -30,6 +33,23 @@ const getVenues = async () => {
         }
     } catch (error) {
         alert(error.message);
+    }
+}
+
+const getWeather = async () => {
+    const city = $input.val();
+    const urlToFetch = `${weatherUrl}${apiKey}&q=${city}&days=${weekDays.length}`;
+    try {
+        const response = await fetch(urlToFetch);
+        if (response.ok) {
+            const jsonResponse = await response.json();
+            const days = jsonResponse.forecast.forecastday;
+            return days;
+        } else {
+            throw new Error('Failed!');
+        }
+    } catch(error) {
+        console.log(error.message);
     }
 }
 
@@ -43,6 +63,7 @@ const searchDestination = () => {
     });
     $destination.empty();
     $container.css("visibiity", "visible");
+    getWeather();
 }
 
 $submit.click(searchDestination);
