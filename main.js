@@ -8,8 +8,8 @@ const $weatherDivs = [$('#weather1'), $('#weather2'), $('#weather3'), $('#weathe
 
 const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
- const clientId = '';
- const clientSecret = '';
+const clientId = '';
+const clientSecret = '';
 const url = 'https://api.foursquare.com/v2/venues/explore?';
 
 const apiKey = '';
@@ -36,6 +36,12 @@ const getVenues = async () => {
     }
 }
 
+const renderVenues = venues => {
+    $venueDivs.forEach(($venue, index) => {
+        const venue = venues[index];
+    })
+}
+
 const getWeather = async () => {
     const city = $input.val();
     const urlToFetch = `${weatherUrl}${apiKey}&q=${city}&days=${weekDays.length}`;
@@ -48,7 +54,7 @@ const getWeather = async () => {
         } else {
             throw new Error('Failed!');
         }
-    } catch(error) {
+    } catch (error) {
         console.log(error.message);
     }
 }
@@ -64,6 +70,7 @@ const searchDestination = () => {
     $destination.empty();
     $container.css("visibiity", "visible");
     getWeather();
+    getVenues();
 }
 
 $submit.click(searchDestination);
